@@ -1,0 +1,18 @@
+Simple crawler notes
+
+Implemented using Python 2.7 + scrapy framework
+
+
+
+Refernce sites used
+
+https://doc.scrapy.org/en/latest/intro/tutorial.html
+
+
+Future steps
+
+Investigate the Apache Nutch option from an enterprise framework
+
+Change the visualisation method to feed the Json stream to an Elastic instance via the scrapy ELK extension
+
+Extend the model to more effectively support asynch streaming via queue mechanism for receipt and processing of search results. Initial options under consideration Kafka, Redis, Rabbit
