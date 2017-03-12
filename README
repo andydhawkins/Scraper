@@ -1,18 +1,58 @@
-Simple crawler notes
+Simple webcrawler
 
-Implemented using Python 2.7 + scrapy framework
+Implemention
+Created on Mac OSX
+Python 2.7
+Scrapy Framework
 
+Framework installation
 
+pip install scrapy
 
-Refernce sites used
+NB - Homebrew scrapy cask isn't currently up to date so keep to pip installation
 
+Main Reference sites used during construction
+https://scrapy.org/
 https://doc.scrapy.org/en/latest/intro/tutorial.html
+Stackoverflow
 
+Compromises
+Scrapy "Allowed domains" effectively limits the crawling to the host domain but restricts the recording of external
+links, further time and experimentation with the framework required to support this requirement.
 
-Future steps
+Execution
 
-Investigate the Apache Nutch option from an enterprise framework
+Once pulled cd into the top level scraper folder
 
-Change the visualisation method to feed the Json stream to an Elastic instance via the scrapy ELK extension
+$ scrapy crawl simplecrawl
+ or
+$ scrapy crawl --nolog simplecrawl
+to remove log "noise" on execution
 
-Extend the model to more effectively support asynch streaming via queue mechanism for receipt and processing of search results. Initial options under consideration Kafka, Redis, Rabbit
+The settings within settings.py have been adjusted to automatically create a time stamped json output of the run within
+the data subfolder structure e.g. ./data/simplecrawl/2017-03-12T11-16-45.json. This is achieved by the settings
+
+FEED_URI = 'data/%(name)s/%(time)s.json'
+FEED_FORMAT = 'json'
+
+Next steps - Scrapy code
+
+Solve the external links compromise e.g. through controlling search critera and search depth past the domain limit
+either within the Rules for the LinkExtractor class or within the crawl loop.
+Extend the information capture structure and tune the Xpath's for more efficient parsing
+Amend the output process to offer more flexible options, either through Pipelines or potentially through parameters in
+settings.py
+Change the 'Allowed Domain' and 'Start URL' to data feed
+Explore parallel concurrent feeds
+
+Next steps - Implementation
+Restructure the output to feed into an Elastic instance
+Containerise the implementation
+Restructure the send/receive mechanism to utilise a queue mechanism for scaling of concurrent async crawls. Initial
+candidates would be Kafka, Redis or Rabbit
+
+Next step investigations
+
+Investigate the Apache Nutch option from an enterprise framework, potential to short circuit the level of coding
+required.
+Look at an alternate visualisation method, either via ELK or one of the Django or Scrapy extensions
