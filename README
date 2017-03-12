@@ -56,3 +56,6 @@ Next step investigations
 Investigate the Apache Nutch option from an enterprise framework, potential to short circuit the level of coding
 required.
 Look at an alternate visualisation method, either via ELK or one of the Django or Scrapy extensions
+
+Other stuff
+Make the Readme prettier!
